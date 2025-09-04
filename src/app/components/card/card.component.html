@@ -1,0 +1,22 @@
+<li class="border-2 border-primary rounded-lg p-10 flex gap-2 shadow-sm">
+  <img
+    class="w-40 h-40 object-cover rounded-md"
+    [src]="image()"
+    alt="flexao-gif"
+  />
+  <div class="flex flex-col gap-2">
+    <h3 class="text-xl">{{ title() }}</h3>
+    <legend>{{ description() }}</legend>
+    <div class="flex gap-2">
+      <input
+        class="input input-primary input-sm disabled:text-white disabled:bg-zinc-800 w-12"
+        type="text"
+        disabled
+        [value]="numeroExecucoes"
+      />
+      <button class="btn btn-primary btn-sm" (click)="finalizaRepeticao()">
+        +
+      </button>
+    </div>
+  </div>
+</li>

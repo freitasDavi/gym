@@ -1,12 +1,62 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { CardComponent } from './components/card/card.component';
+
+type Exercicio = {
+  id: number;
+  title: string;
+  image: string;
+  description: string;
+  numberOfExecutions: number;
+};
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [CardComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
 export class AppComponent {
   title = 'gym';
+
+  exercicios: Exercicio[] = [
+    {
+      id: 1,
+      title: 'Flexão Padrão 5 x 13',
+      description: 'Algo sobre o treino',
+      numberOfExecutions: 5,
+      image:
+        'https://www.hipertrofia.org/blog/wp-content/uploads/2023/11/wide-hand-push-up.gif',
+    },
+    {
+      id: 2,
+      title: 'Squat 90º 3 x 3 negativa',
+      description: 'Algo sobre o treino',
+      numberOfExecutions: 3,
+      image:
+        'https://i.pinimg.com/originals/9e/40/fd/9e40fd0f60665b4acb6a53be828909d8.gif',
+    },
+    {
+      id: 3,
+      title: 'Squat 90º 3 x 15',
+      description: 'Algo sobre o treino',
+      numberOfExecutions: 3,
+      image:
+        'https://i.pinimg.com/originals/9e/40/fd/9e40fd0f60665b4acb6a53be828909d8.gif',
+    },
+    {
+      id: 4,
+      title: 'Elevated Hip Thrust 3 x 15',
+      description: 'Algo sobre o treino',
+      numberOfExecutions: 3,
+      image: 'https://gymvisual.com/img/p/1/0/1/0/6/10106.gif',
+    },
+    {
+      id: 5,
+      title: 'Prancha Abdominal 4 x 15',
+      description: 'Algo sobre o treino',
+      numberOfExecutions: 4,
+      image:
+        'https://grandeatleta.com.br/wp-content/uploads/2018/06/Prancha-abdominal-Ponte-ventral.gif',
+    },
+  ];
 }
