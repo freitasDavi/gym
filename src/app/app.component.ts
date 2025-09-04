@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CardComponent } from './components/card/card.component';
+import { FormsModule } from '@angular/forms';
 
 type Exercicio = {
   id: number;
@@ -11,12 +12,14 @@ type Exercicio = {
 
 @Component({
   selector: 'app-root',
-  imports: [CardComponent],
+  imports: [CardComponent, FormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent {
   title = 'gym';
+  tempoDeDescanso = 3;
+  estaDescansando = signal(false);
 
   exercicios: Exercicio[] = [
     {
@@ -30,7 +33,7 @@ export class AppComponent {
     {
       id: 2,
       title: 'Squat 90º 3 x 3 negativa',
-      description: 'Algo sobre o treino',
+      description: 'Faz exercicio, segura no fim da execução por 3 segundos.',
       numberOfExecutions: 3,
       image:
         'https://i.pinimg.com/originals/9e/40/fd/9e40fd0f60665b4acb6a53be828909d8.gif',
@@ -59,4 +62,24 @@ export class AppComponent {
         'https://grandeatleta.com.br/wp-content/uploads/2018/06/Prancha-abdominal-Ponte-ventral.gif',
     },
   ];
+
+  iniciarDescanso() {
+    let tempo = this.tempoDeDescanso * 60;
+    this.estaDescansando.set(true);
+    const intervalo = setInterval(() => {
+      if (tempo > 0) {
+        tempo--;
+        this.tempoDeDescanso = tempo;
+      } else {
+        clearInterval(intervalo);
+        this.tempoDeDescanso = 3; // Resetar para o valor inicial
+        this.estaDescansando.set(false);
+      }
+    }, 1000);
+  }
+
+  atualizaTempoDeDescanso(valor?: string) {
+    console.log('atualizando ' + valor);
+    if (valor) this.tempoDeDescanso = Number(valor);
+  }
 }

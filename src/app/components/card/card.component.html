@@ -1,4 +1,6 @@
-<li class="border-2 border-primary rounded-lg p-10 flex gap-2 shadow-sm">
+<li
+  class="border-2 border-primary rounded-lg p-10 flex gap-2 shadow-sm relative max-w-[500px]"
+>
   <img
     class="w-40 h-40 object-cover rounded-md"
     [src]="image()"
@@ -6,17 +8,29 @@
   />
   <div class="flex flex-col gap-2">
     <h3 class="text-xl">{{ title() }}</h3>
-    <legend>{{ description() }}</legend>
-    <div class="flex gap-2">
+    <legend class="text-sm">{{ description() }}</legend>
+    <div class="join">
       <input
-        class="input input-primary input-sm disabled:text-white disabled:bg-zinc-800 w-12"
+        class="input join-item input-primary disabled:text-white disabled:bg-zinc-800 w-12"
         type="text"
         disabled
         [value]="numeroExecucoes"
       />
-      <button class="btn btn-primary btn-sm" (click)="finalizaRepeticao()">
+      <button
+        class="btn btn-primary join-item"
+        (click)="finalizaRepeticao()"
+        [disabled]="done() || estaDescansando()"
+      >
         +
       </button>
     </div>
   </div>
+  @if (done()) {
+
+  <div
+    class="absolute bg-black opacity-50 w-full top-0 left-0 h-full flex items-center justify-center"
+  >
+    <i-lucide [img]="check" size="120" class="text-emerald-300"></i-lucide>
+  </div>
+  }
 </li>
