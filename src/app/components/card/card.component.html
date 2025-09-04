@@ -3,12 +3,12 @@
 >
   <img
     class="w-40 h-40 object-cover rounded-md"
-    [src]="image()"
+    [src]="exercicio()?.image"
     alt="flexao-gif"
   />
   <div class="flex flex-col gap-2">
-    <h3 class="text-xl">{{ title() }}</h3>
-    <legend class="text-sm">{{ description() }}</legend>
+    <h3 class="text-xl">{{ exercicio()?.title }}</h3>
+    <legend class="text-sm">{{ exercicio()?.description }}</legend>
     <div class="join">
       <input
         class="input join-item input-primary disabled:text-white disabled:bg-zinc-800 w-12"
@@ -19,13 +19,13 @@
       <button
         class="btn btn-primary join-item"
         (click)="finalizaRepeticao()"
-        [disabled]="done() || estaDescansando()"
+        [disabled]="exercicio()?.completed || estaDescansando()"
       >
         +
       </button>
     </div>
   </div>
-  @if (done()) {
+  @if (exercicio()?.completed) {
 
   <div
     class="absolute bg-black opacity-50 w-full top-0 left-0 h-full flex items-center justify-center"

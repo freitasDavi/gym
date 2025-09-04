@@ -2,12 +2,13 @@ import { Component, signal } from '@angular/core';
 import { CardComponent } from './components/card/card.component';
 import { FormsModule } from '@angular/forms';
 
-type Exercicio = {
+export type Exercicio = {
   id: number;
   title: string;
   image: string;
   description: string;
   numberOfExecutions: number;
+  completed: boolean;
 };
 
 @Component({
@@ -29,6 +30,7 @@ export class AppComponent {
       numberOfExecutions: 5,
       image:
         'https://www.hipertrofia.org/blog/wp-content/uploads/2023/11/wide-hand-push-up.gif',
+      completed: false,
     },
     {
       id: 2,
@@ -37,6 +39,7 @@ export class AppComponent {
       numberOfExecutions: 3,
       image:
         'https://i.pinimg.com/originals/9e/40/fd/9e40fd0f60665b4acb6a53be828909d8.gif',
+      completed: false,
     },
     {
       id: 3,
@@ -45,6 +48,7 @@ export class AppComponent {
       numberOfExecutions: 3,
       image:
         'https://i.pinimg.com/originals/9e/40/fd/9e40fd0f60665b4acb6a53be828909d8.gif',
+      completed: false,
     },
     {
       id: 4,
@@ -52,6 +56,7 @@ export class AppComponent {
       description: 'Algo sobre o treino',
       numberOfExecutions: 3,
       image: 'https://gymvisual.com/img/p/1/0/1/0/6/10106.gif',
+      completed: false,
     },
     {
       id: 5,
@@ -60,6 +65,7 @@ export class AppComponent {
       numberOfExecutions: 4,
       image:
         'https://grandeatleta.com.br/wp-content/uploads/2018/06/Prancha-abdominal-Ponte-ventral.gif',
+      completed: false,
     },
   ];
 

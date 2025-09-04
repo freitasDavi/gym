@@ -1,5 +1,6 @@
 import { Component, input, output, signal } from '@angular/core';
 import { LucideAngularModule, Check } from 'lucide-angular';
+import { Exercicio } from '../../app.component';
 
 @Component({
   selector: 'app-card',
@@ -8,11 +9,7 @@ import { LucideAngularModule, Check } from 'lucide-angular';
   styleUrl: './card.component.css',
 })
 export class CardComponent {
-  title = input('');
-  image = input('');
-  description = input('');
-  numeroRepeticoes = input(3);
-  done = signal(false);
+  exercicio = input<Exercicio>();
 
   readonly check = Check;
   estaDescansando = input(false);
@@ -22,12 +19,12 @@ export class CardComponent {
 
   finalizaRepeticao() {
     console.log('Finalizou uma repetição');
-    if (this.numeroExecucoes < this.numeroRepeticoes()) {
+    if (this.numeroExecucoes < this.exercicio()!.numberOfExecutions) {
       this.numeroExecucoes++;
       this.iniciaDescanso.emit();
 
-      if (this.numeroExecucoes == this.numeroRepeticoes()) {
-        this.done.set(true);
+      if (this.numeroExecucoes == this.exercicio()!.numberOfExecutions) {
+        this.exercicio()!.completed = true;
         alert('Parabéns! Você finalizou o exercício.');
       }
 

@@ -25,12 +25,9 @@
   <ul class="grid grid-cols-2 gap-4">
     @for (exercicio of exercicios; track exercicio.id) {
     <app-card
-      [title]="exercicio.title"
-      [description]="exercicio.description"
-      [numeroRepeticoes]="exercicio.numberOfExecutions"
-      [image]="exercicio.image"
       (iniciaDescanso)="iniciarDescanso()"
       [estaDescansando]="estaDescansando()"
+      [exercicio]="exercicio"
     />
     }
   </ul>
