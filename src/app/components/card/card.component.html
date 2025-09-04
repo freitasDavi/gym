@@ -1,36 +1,45 @@
 <li
-  class="border-2 border-primary rounded-lg p-10 flex gap-2 shadow-sm relative max-w-[500px]"
+  class="card bg-base-200 shadow-xl hover:shadow-2xl transition-all duration-300"
 >
-  <img
-    class="w-40 h-40 object-cover rounded-md"
-    [src]="exercicio()?.image"
-    alt="flexao-gif"
-  />
-  <div class="flex flex-col gap-2">
-    <h3 class="text-xl">{{ exercicio()?.title }}</h3>
-    <legend class="text-sm">{{ exercicio()?.description }}</legend>
-    <div class="join">
-      <input
-        class="input join-item input-primary disabled:text-white disabled:bg-zinc-800 w-12"
-        type="text"
-        disabled
-        [value]="numeroExecucoes"
-      />
-      <button
-        class="btn btn-primary join-item"
-        (click)="finalizaRepeticao()"
-        [disabled]="exercicio()?.completed || estaDescansando()"
-      >
-        +
-      </button>
+  <div class="relative">
+    <img
+      class="w-full h-48 object-cover rounded-t-xl"
+      [src]="exercicio()?.image"
+      alt="exercicio-imagem"
+    />
+    @if (exercicio()?.completed) {
+    <div
+      class="absolute inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center rounded-t-xl"
+    >
+      <i-lucide
+        [img]="check"
+        size="80"
+        class="text-primary animate-bounce"
+      ></i-lucide>
+    </div>
+    }
+  </div>
+
+  <div class="card-body">
+    <h3 class="card-title text-2xl text-primary">{{ exercicio()?.title }}</h3>
+    <p class="text-base-content/70">{{ exercicio()?.description }}</p>
+
+    <div class="card-actions justify-end mt-4">
+      <div class="join">
+        <input
+          class="input join-item input-primary w-16 text-center font-bold text-lg disabled:text-primary disabled:bg-base-300"
+          type="text"
+          disabled
+          [value]="numeroExecucoes"
+        />
+        <button
+          class="btn btn-primary join-item text-lg"
+          (click)="finalizaRepeticao()"
+          [disabled]="exercicio()?.completed || estaDescansando()"
+        >
+          <span class="font-bold">+</span>
+        </button>
+      </div>
     </div>
   </div>
-  @if (exercicio()?.completed) {
-
-  <div
-    class="absolute bg-black opacity-50 w-full top-0 left-0 h-full flex items-center justify-center"
-  >
-    <i-lucide [img]="check" size="120" class="text-emerald-300"></i-lucide>
-  </div>
-  }
 </li>
