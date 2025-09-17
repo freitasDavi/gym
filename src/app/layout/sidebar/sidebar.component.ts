@@ -6,6 +6,7 @@ import {
   Dumbbell,
   History,
   Settings,
+  AlarmClock,
 } from 'lucide-angular';
 
 @Component({
@@ -20,4 +21,5 @@ export class SidebarComponent {
   dumbbell = Dumbbell;
   history = History;
   settings = Settings;
+  clock = AlarmClock;
 }
