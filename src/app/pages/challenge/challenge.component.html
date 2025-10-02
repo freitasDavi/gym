@@ -16,11 +16,11 @@
             <div class="stat-title">Academia</div>
             <div class="stat-value text-primary">
               <!-- / 6 restantes -->
-              {{ weekProgress()?.gymCount }}/6
+              {{ currentChallenge?.gymCount }}/6
             </div>
             <div class="stat-desc">
               <!-- 6 - restantes -->
-              {{ 6 - weekProgress()!.gymCount }} restantes
+              {{ 6 - (currentChallenge?.gymCount || 0) }} restantes
             </div>
           </div>
 
@@ -28,10 +28,10 @@
             <div class="stat-title">Caminhadas</div>
             <div class="stat-value text-primary">
               <!-- 1 / 3 -->
-              {{ weekProgress()?.walkCount }}/3
+              {{ currentChallenge?.walkCount }}/3
             </div>
             <div class="stat-desc">
-              {{ 3 - weekProgress()!.walkCount }} restantes
+              {{ 3 - (currentChallenge?.walkCount || 0) }} restantes
             </div>
           </div>
         </div>
@@ -43,9 +43,9 @@
   <div class="flex-1 overflow-auto py-6">
     <div class="container mx-auto px-6">
       <div class="grid gap-4">
-        @if (weekProgress() == null) {
+        @if (currentChallenge == null) {
         <p>Carregando...</p>
-        } @else { @for (day of weekProgress()!.activities; track day.date) {
+        } @else { @for (day of currentChallenge.activities; track day.date) {
         <div
           class="card bg-base-200 shadow-sm"
           [class.border-2]="isToday(day.date)"
@@ -90,7 +90,7 @@
                     [class.text-primary-content]="day.walk"
                     [class.text-base-content]="!day.walk"
                   ></i-lucide>
-                  Caminhada
+                  {{ currentChallenge.activityName }}
                 </button>
               </div>
             </div>

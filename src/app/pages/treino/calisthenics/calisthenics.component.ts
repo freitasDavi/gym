@@ -22,6 +22,7 @@ export class CalisthenicsComponent {
   title = 'gym';
   tempoDeDescanso = 3;
   estaDescansando = signal(false);
+  tempoDeDescansoAlterado = signal(3);
 
   exercicios: Exercicio[] = [
     {
@@ -79,7 +80,7 @@ export class CalisthenicsComponent {
         this.tempoDeDescanso = tempo;
       } else {
         clearInterval(intervalo);
-        this.tempoDeDescanso = 3; // Resetar para o valor inicial
+        this.tempoDeDescanso = this.tempoDeDescansoAlterado(); // Resetar para o valor inicial
         this.estaDescansando.set(false);
       }
     }, 1000);
@@ -87,6 +88,9 @@ export class CalisthenicsComponent {
 
   atualizaTempoDeDescanso(valor?: string) {
     console.log('atualizando ' + valor);
-    if (valor) this.tempoDeDescanso = Number(valor);
+    if (valor) {
+      this.tempoDeDescansoAlterado.set(Number(valor));
+      this.tempoDeDescanso = this.tempoDeDescansoAlterado();
+    }
   }
 }
