@@ -1,6 +1,6 @@
-import { Component, input, output, signal } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { LucideAngularModule, Check } from 'lucide-angular';
-import { Exercicio } from '../../app.component';
+import { Exercicio } from '../../pages/treino/calisthenics/calisthenics.component';
 
 @Component({
   selector: 'app-card',

@@ -1,0 +1,52 @@
+<div class="h-full flex flex-col">
+  <!-- Header Section -->
+  <div class="border-b border-base-300 bg-base-200/50 backdrop-blur-sm">
+    <div class="container mx-auto px-6 py-4">
+      <div
+        class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
+      >
+        <div>
+          <h1 class="text-2xl font-bold text-primary">Treino de Calistenia</h1>
+          <p class="text-base-content/70">Acompanhe seu progresso</p>
+        </div>
+
+        <!-- Timer Section -->
+        <div class="join bg-base-200 shadow-lg">
+          <label class="flex input join-item input-primary">
+            <input
+              class="input grow bg-transparent focus:outline-none w-20 text-center"
+              type="number"
+              [disabled]="estaDescansando()"
+              [(ngModel)]="tempoDeDescanso"
+            />
+            <span class="badge badge-primary whitespace-nowrap">
+              {{ estaDescansando() ? "Segundos restantes" : "Minutos" }}
+            </span>
+          </label>
+          <button
+            class="btn btn-primary join-item"
+            (click)="iniciarDescanso()"
+            [disabled]="estaDescansando()"
+          >
+            Descansar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="flex-1 overflow-auto py-6">
+    <div class="container mx-auto px-6">
+      <ul class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        @for (exercicio of exercicios; track exercicio.id) {
+        <app-card
+          (iniciaDescanso)="iniciarDescanso()"
+          [estaDescansando]="estaDescansando()"
+          [exercicio]="exercicio"
+        />
+        }
+      </ul>
+    </div>
+  </div>
+</div>
