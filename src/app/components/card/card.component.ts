@@ -1,6 +1,6 @@
 import { Component, input, output } from '@angular/core';
 import { LucideAngularModule, Check } from 'lucide-angular';
-import { Exercicio } from '../../pages/treino/calisthenics/calisthenics.component';
+import { GetExercicioResponse } from '../../util/types/Treinos';
 
 @Component({
   selector: 'app-card',
@@ -9,22 +9,21 @@ import { Exercicio } from '../../pages/treino/calisthenics/calisthenics.componen
   styleUrl: './card.component.css',
 })
 export class CardComponent {
-  exercicio = input<Exercicio>();
+  exercicio = input<GetExercicioResponse>();
 
   readonly check = Check;
   estaDescansando = input(false);
-  iniciaDescanso = output<void>();
+  iniciaDescanso = output<number | undefined>();
 
   numeroExecucoes = 0;
 
   finalizaRepeticao() {
-    console.log('Finalizou uma repetição');
-    if (this.numeroExecucoes < this.exercicio()!.numberOfExecutions) {
+    if (this.numeroExecucoes < this.exercicio()!.repeticoes) {
       this.numeroExecucoes++;
-      this.iniciaDescanso.emit();
+      this.iniciaDescanso.emit(this.exercicio()?.tempoDescansoSegundos);
 
-      if (this.numeroExecucoes == this.exercicio()!.numberOfExecutions) {
-        this.exercicio()!.completed = true;
+      if (this.numeroExecucoes == this.exercicio()!.repeticoes) {
+        // this.exercicio()!.completed = true;
         alert('Parabéns! Você finalizou o exercício.');
       }
 

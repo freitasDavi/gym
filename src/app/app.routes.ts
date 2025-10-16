@@ -10,7 +10,7 @@ export const routes: Routes = [
     component: LayoutComponent,
     children: [
       {
-        path: 'calisthenics',
+        path: 'calisthenics/:treinoId',
         component: CalisthenicsComponent,
       },
       {

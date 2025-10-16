@@ -1,5 +1,11 @@
 <div class="h-full flex flex-col">
   <!-- Header Section -->
+
+  @if (treino == null) {
+  <div class="flex-1 flex items-center justify-center">
+    <p>Carregando...</p>
+  </div>
+  } @else {
   <div class="border-b border-base-300 bg-base-200/50 backdrop-blur-sm">
     <div class="container mx-auto px-6 py-4">
       <div
@@ -39,9 +45,9 @@
   <div class="flex-1 overflow-auto py-6">
     <div class="container mx-auto px-6">
       <ul class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        @for (exercicio of exercicios; track exercicio.id) {
+        @for (exercicio of treino.exercicios; track exercicio.id) {
         <app-card
-          (iniciaDescanso)="iniciarDescanso()"
+          (iniciaDescanso)="iniciarDescanso($event)"
           [estaDescansando]="estaDescansando()"
           [exercicio]="exercicio"
         />
@@ -49,4 +55,5 @@
       </ul>
     </div>
   </div>
+  }
 </div>

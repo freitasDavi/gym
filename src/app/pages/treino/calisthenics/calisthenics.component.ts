@@ -1,7 +1,10 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
 import { CardComponent } from '../../../components/card/card.component';
+import { GetTreinoResponse } from '../../../util/types/Treinos';
+import { TreinosService } from '../../../services/treinos.service';
+import { ActivatedRoute } from '@angular/router';
 
 export type Exercicio = {
   id: number;
@@ -18,11 +21,16 @@ export type Exercicio = {
   templateUrl: './calisthenics.component.html',
   styleUrl: './calisthenics.component.css',
 })
-export class CalisthenicsComponent {
+export class CalisthenicsComponent implements OnInit {
   title = 'gym';
   tempoDeDescanso = 3;
   estaDescansando = signal(false);
   tempoDeDescansoAlterado = signal(3);
+
+  private dadosRota = inject(ActivatedRoute);
+  treino: GetTreinoResponse | null = null;
+  numeroDeExercicios = 0;
+  numeroDeExerciciosConcluidos = 0;
 
   exercicios: Exercicio[] = [
     {
@@ -71,16 +79,63 @@ export class CalisthenicsComponent {
     },
   ];
 
-  iniciarDescanso() {
-    let tempo = this.tempoDeDescanso * 60;
+  constructor(private treinoService: TreinosService) {}
+
+  ngOnInit(): void {
+    this.getTreinoAtivo();
+  }
+
+  getTreinoAtivo() {
+    const treinoId = this.dadosRota.snapshot.paramMap.get('treinoId');
+
+    if (!treinoId) {
+      // TODO: Tratar erro de ID inválido e navegar para uma página de erro ou lista de treinos
+      throw new Error('TreinoId não foi fornecido');
+    }
+
+    this.treinoService.getSelectedTreino(Number(treinoId)).subscribe({
+      next: (response) => {
+        this.treino = response;
+
+        this.numeroDeExercicios = response.exercicios.length;
+      },
+      error: (error) => alert('Erro ao carregar treino:' + error),
+    });
+  }
+
+  // iniciarDescanso() {
+  //   let tempo = this.tempoDeDescanso * 60;
+  //   this.estaDescansando.set(true);
+  //   const intervalo = setInterval(() => {
+  //     if (tempo > 0) {
+  //       tempo--;
+  //       this.tempoDeDescanso = tempo;
+  //     } else {
+  //       clearInterval(intervalo);
+  //       this.tempoDeDescanso = this.tempoDeDescansoAlterado(); // Resetar para o valor inicial
+  //       this.estaDescansando.set(false);
+  //     }
+  //   }, 1000);
+  // }
+
+  iniciarDescanso(tempoEmSegundos?: number) {
+    let descanso = this.tempoDeDescanso * 60;
+
+    if (tempoEmSegundos) {
+      descanso = tempoEmSegundos;
+    }
+
+    let valorInicial = descanso;
+
     this.estaDescansando.set(true);
+
     const intervalo = setInterval(() => {
-      if (tempo > 0) {
-        tempo--;
-        this.tempoDeDescanso = tempo;
+      if (descanso > 0) {
+        descanso--;
+        this.tempoDeDescanso = descanso;
       } else {
         clearInterval(intervalo);
-        this.tempoDeDescanso = this.tempoDeDescansoAlterado(); // Resetar para o valor inicial
+        this.tempoDeDescanso = valorInicial;
         this.estaDescansando.set(false);
       }
     }, 1000);
