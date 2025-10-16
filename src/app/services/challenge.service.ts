@@ -3,6 +3,7 @@ import { WeekProgress, DayActivity } from '../util/types/Challenge';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 import { GetChallengeResponse } from '../util/types/GetChallengeResponse';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ export class ChallengeService {
   weekProgressKey = 'weekProgress';
   currentData: GetChallengeResponse | null = null;
   private http = inject(HttpClient);
-  private urlApi = 'https://localhost:7005/api/Challenge';
+  private urlApi = environment.apiUrl + 'Challenge';
 
   getWeekProgress() {
     const savedProgress = localStorage.getItem(this.weekProgressKey);

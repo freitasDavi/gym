@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { GetTreinoResponse, GetTreinosResponse } from '../util/types/Treinos';
 import { catchError, Observable, throwError } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,7 @@ export class TreinosService {
   treinoAtivo: null = null;
 
   private http = inject(HttpClient);
-  private urlApi = 'https://localhost:7005/api/treino';
+  private urlApi = environment.apiUrl + 'treino';
 
   getUserTreinos() {
     return this.http
